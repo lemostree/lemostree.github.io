@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LemosTree For Fun</title>
+    <title>LemosTree - Portofolio</title>
     <style>
         :root {
             --bg-color: #f5f5f5;
@@ -11,6 +11,9 @@
             --text-muted: #666;
             --border-color: #ddd;
             --accent: #000;
+        }
+        html {
+            scroll-behavior: smooth;
         }
         body {
             margin: 0;
@@ -20,6 +23,46 @@
             line-height: 1.7;
         }
         a { text-decoration: none; color: var(--accent); }
+
+        /* Navbar Styling */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(245, 245, 245, 0.9);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            box-sizing: border-box;
+            z-index: 1000;
+        }
+        .nav-logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+            margin: 0;
+            padding: 0;
+        }
+        .nav-links a {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+        .nav-links a:hover {
+            color: var(--text-main);
+        }
+
+        /* Header / Hero Section */
         header {
             height: 100vh;
             display: flex;
@@ -31,6 +74,7 @@
         }
         h1 { font-size: 3.5rem; margin-bottom: 10px; font-weight: 700; letter-spacing: -1.5px; }
         p.subtitle { font-size: 1.25rem; color: var(--text-muted); max-width: 650px; }
+        
         section {
             padding: 90px 20px;
             max-width: 800px;
@@ -75,7 +119,18 @@
 </head>
 <body>
 
-<header class="fade-in">
+<!-- Navbar Atas -->
+<nav>
+    <div class="nav-logo">LemosTree.</div>
+    <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+</nav>
+
+<header id="home" class="fade-in">
     <h1>LemosTree</h1>
     <p class="subtitle">Software Engineer & Game Developer yang berdedikasi membangun kode yang bersih, efisien, dan berdampak nyata dari Surabaya.</p>
 </header>
