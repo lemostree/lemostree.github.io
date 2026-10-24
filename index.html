@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,7 +17,7 @@
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-main);
-            line-height: 1.6;
+            line-height: 1.7;
         }
         a { text-decoration: none; color: var(--accent); }
         header {
@@ -29,38 +29,40 @@
             text-align: center;
             padding: 0 20px;
         }
-        h1 { font-size: 3rem; margin-bottom: 10px; font-weight: 700; letter-spacing: -1px; }
-        p.subtitle { font-size: 1.2rem; color: var(--text-muted); max-width: 600px; }
+        h1 { font-size: 3.5rem; margin-bottom: 10px; font-weight: 700; letter-spacing: -1.5px; }
+        p.subtitle { font-size: 1.25rem; color: var(--text-muted); max-width: 650px; }
         section {
-            padding: 80px 20px;
+            padding: 90px 20px;
             max-width: 800px;
             margin: 0 auto;
         }
-        h2 { font-size: 2rem; margin-bottom: 40px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+        h2 { font-size: 2rem; margin-bottom: 40px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; font-weight: 600; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
         .card {
             background: #fff;
-            padding: 20px;
+            padding: 24px;
             border: 1px solid var(--border-color);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
-        .card h3 { margin-top: 0; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 12px 24px rgba(0,0,0,0.06); }
+        .card h3 { margin-top: 0; font-size: 1.25rem; }
         .skills-list { display: flex; flex-wrap: wrap; gap: 10px; padding: 0; list-style: none; }
-        .skills-list li { background: #fff; border: 1px solid var(--border-color); padding: 5px 15px; font-size: 0.9rem; border-radius: 20px; }
+        .skills-list li { background: #fff; border: 1px solid var(--border-color); padding: 6px 16px; font-size: 0.9rem; border-radius: 20px; }
         
         /* Contact Form */
-        form { display: flex; flex-direction: column; gap: 15px; }
+        form { display: flex; flex-direction: column; gap: 16px; }
         input, textarea {
-            width: 100%; padding: 12px;
+            width: 100%; padding: 14px;
             border: 1px solid var(--border-color);
             background: #fff; color: var(--text-main);
             font-family: inherit; font-size: 1rem;
             box-sizing: border-box;
+            transition: border-color 0.2s;
         }
+        input:focus, textarea:focus { outline: none; border-color: var(--accent); }
         button {
-            padding: 12px 20px; background: var(--accent); color: #fff;
-            border: none; cursor: pointer; font-size: 1rem; transition: background 0.3s ease;
+            padding: 14px 20px; background: var(--accent); color: #fff;
+            border: none; cursor: pointer; font-size: 1rem; font-weight: 500; transition: background 0.3s ease;
         }
         button:hover { background: #333; }
         
@@ -75,16 +77,16 @@
 
 <header class="fade-in">
     <h1>LemosTree</h1>
-    <p class="subtitle">Software Engineer & Game Developer based in Surabaya.</p>
+    <p class="subtitle">Software Engineer & Game Developer yang berdedikasi membangun kode yang bersih, efisien, dan berdampak nyata dari Surabaya.</p>
 </header>
 
 <section id="about" class="fade-in">
-    <h2>About</h2>
-    <p>I am an Informatics undergraduate student with a strong passion for software engineering, system integration, and sandbox game development. I thrive in command-line environments and specialize in crafting clean, efficient, and direct code solutions.</p>
+    <h2>Tentang Saya</h2>
+    <p>Halo! Saya adalah seorang mahasiswa Informatika yang memiliki ketertarikan mendalam pada rekayasa perangkat lunak, integrasi sistem, dan pengembangan dunia game sandbox. Berbasis di lingkungan terminal yang gesit, saya fokus meracik struktur kode yang lugas, terstruktur rapi, dan berorientasi pada performa optimal tanpa kompromi.</p>
 </section>
 
 <section id="skills" class="fade-in">
-    <h2>Tech Stack</h2>
+    <h2>Keahlian & Teknologi</h2>
     <ul class="skills-list">
         <li>Go</li>
         <li>C++</li>
@@ -98,31 +100,31 @@
 </section>
 
 <section id="projects" class="fade-in">
-    <h2>Projects</h2>
+    <h2>Proyek Unggulan</h2>
     <div class="grid">
         <div class="card">
             <h3>MindStone</h3>
-            <p>A Go-based application built for task progress logging, mood tracking, and stress analytics, designed with clean architecture.</p>
+            <p>Aplikasi berbasis Go yang dirancang untuk pencatatan progres tugas, pelacakan suasana hati (mood), serta analisis tingkat stres dengan pendekatan arsitektur kode yang bersih.</p>
         </div>
         <div class="card">
-            <h3>TEL-U SMP Server</h3>
-            <p>A custom Minecraft Bedrock Edition dedicated server. Developed custom role-selection systems using JavaScript Scripting API and JSON manifests.</p>
+            <h3>Server TEL-U SMP</h3>
+            <p>Pengembangan server khusus Minecraft Bedrock Edition. Menciptakan sistem pemilihan peran (role-selection) mandiri menggunakan JavaScript Scripting API dan manifest JSON.</p>
         </div>
     </div>
 </section>
 
 <section id="contact" class="fade-in">
-    <h2>Contact</h2>
-    <form onsubmit="event.preventDefault(); alert('Message sent successfully!');">
-        <input type="text" placeholder="Name" required>
-        <input type="email" placeholder="Email" required>
-        <textarea rows="5" placeholder="Message" required></textarea>
-        <button type="submit">Send Message</button>
+    <h2>Hubungi Saya</h2>
+    <form onsubmit="event.preventDefault(); alert('Pesan berhasil terkirim!');">
+        <input type="text" placeholder="Nama Lengkap" required>
+        <input type="email" placeholder="Alamat Email" required>
+        <textarea rows="5" placeholder="Tuliskan pesan atau tawaran kolaborasi Anda di sini..." required></textarea>
+        <button type="submit">Kirim Pesan</button>
     </form>
 </section>
 
 <footer>
-    <p>&copy; 2026 LemosTree. All rights reserved.</p>
+    <p>&copy; 2026 LemosTree. Hak cipta dilindungi.</p>
 </footer>
 
 <script>
