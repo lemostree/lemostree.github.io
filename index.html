@@ -64,7 +64,13 @@
         .nav-links a:hover {
             color: var(--text-main);
         }
-
+        .nav-profile-img {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 1.5px solid var(--accent);
+        }
         /* Header / Hero Section */
         header {
             height: 100vh;
@@ -149,12 +155,16 @@
 <!-- Navbar Atas -->
 <nav>
     <div class="nav-logo">LemosTree.</div>
-    <ul class="nav-links">
-        <li><a href="#home">Home</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#contact">Contact</a></li>
-    </ul>
+    <div class="nav-right">
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <!-- Pastikan nama file foto Anda sesuai, contoh: profile.jpg atau profile.png -->
+        <img src="profile.jpg" alt="Foto Profil" class="nav-profile-img">
+    </div>
 </nav>
 
 <header id="home" class="fade-in">
