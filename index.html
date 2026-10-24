@@ -1,92 +1,147 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>lemostree</title>
+    <title>LemosTree For Fun</title>
     <style>
-        body { 
-            font-family: system-ui, -apple-system, sans-serif; 
-            line-height: 1.6; 
-            margin: 0; 
-            padding: 0; 
-            color: #302f2c; 
-            background-color: #efede3; 
+        :root {
+            --bg-color: #f5f5f5;
+            --text-main: #222;
+            --text-muted: #666;
+            --border-color: #ddd;
+            --accent: #000;
         }
-        header { 
-            background: #302f2c; 
-            color: #efede3; 
-            padding: 3rem 2rem; 
-            text-align: center; 
+        body {
+            margin: 0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
         }
-        header h1 { 
-            margin: 0; 
-            font-size: 2.5rem; 
+        a { text-decoration: none; color: var(--accent); }
+        header {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
         }
-        header p { 
-            margin-top: 10px; 
-            font-size: 1.2rem; 
-            color: #efede3; 
-            opacity: 0.8; 
+        h1 { font-size: 3rem; margin-bottom: 10px; font-weight: 700; letter-spacing: -1px; }
+        p.subtitle { font-size: 1.2rem; color: var(--text-muted); max-width: 600px; }
+        section {
+            padding: 80px 20px;
+            max-width: 800px;
+            margin: 0 auto;
         }
-        section { 
-            padding: 2rem; 
-            max-width: 800px; 
-            margin: 2rem auto; 
-            background: #ffffff; 
-            border-radius: 8px; 
-            box-shadow: 0 4px 10px rgba(48, 47, 44, 0.15); 
+        h2 { font-size: 2rem; margin-bottom: 40px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+        .card {
+            background: #fff;
+            padding: 20px;
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
-        .skills { 
-            display: flex; 
-            gap: 10px; 
-            flex-wrap: wrap; 
-            margin-top: 10px; 
+        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+        .card h3 { margin-top: 0; }
+        .skills-list { display: flex; flex-wrap: wrap; gap: 10px; padding: 0; list-style: none; }
+        .skills-list li { background: #fff; border: 1px solid var(--border-color); padding: 5px 15px; font-size: 0.9rem; border-radius: 20px; }
+        
+        /* Contact Form */
+        form { display: flex; flex-direction: column; gap: 15px; }
+        input, textarea {
+            width: 100%; padding: 12px;
+            border: 1px solid var(--border-color);
+            background: #fff; color: var(--text-main);
+            font-family: inherit; font-size: 1rem;
+            box-sizing: border-box;
         }
-        .skill-badge { 
-            background: #302f2c; 
-            color: #efede3; 
-            padding: 6px 12px; 
-            border-radius: 20px; 
-            font-size: 0.9rem; 
+        button {
+            padding: 12px 20px; background: var(--accent); color: #fff;
+            border: none; cursor: pointer; font-size: 1rem; transition: background 0.3s ease;
         }
-        a { 
-            color: #302f2c; 
-            text-decoration: underline; 
-            font-weight: bold;
-        }
-        a:hover { 
-            color: #555; 
-        }
+        button:hover { background: #333; }
+        
+        footer { text-align: center; padding: 40px 20px; color: var(--text-muted); font-size: 0.9rem; border-top: 1px solid var(--border-color); }
+        
+        /* Fade-in Animation Classes */
+        .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
+        .fade-in.appear { opacity: 1; transform: translateY(0); }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>lemostree</h1>
-        <p>Software Engineer & Game Developer</p>
-    </header>
+<header class="fade-in">
+    <h1>LemosTree</h1>
+    <p class="subtitle">Software Engineer & Game Developer based in Surabaya.</p>
+</header>
 
-    <section>
-        <h2>Tentang Saya</h2>
-        <p>Saya adalah mahasiswa Informatika di Telkom University Surabaya yang bersemangat dalam pengembangan perangkat lunak. Saya terbiasa membangun aplikasi, mengelola database, dan mengeksplorasi mekanik dalam pengembangan game.</p>
-    </section>
+<section id="about" class="fade-in">
+    <h2>About</h2>
+    <p>I am an Informatics undergraduate student with a strong passion for software engineering, system integration, and sandbox game development. I thrive in command-line environments and specialize in crafting clean, efficient, and direct code solutions.</p>
+</section>
 
-    <section>
-        <h2>Keahlian & Teknologi</h2>
-        <div class="skills">
-            <span class="skill-badge">Go</span>
-            <span class="skill-badge">C++</span>
-            <span class="skill-badge">Python</span>
-            <span class="skill-badge">JavaScript</span>
-            <span class="skill-badge">Laravel</span>
+<section id="skills" class="fade-in">
+    <h2>Tech Stack</h2>
+    <ul class="skills-list">
+        <li>Go</li>
+        <li>C++</li>
+        <li>Python</li>
+        <li>MySQL</li>
+        <li>Laravel</li>
+        <li>JavaScript (API & Scripting)</li>
+        <li>Git / GitHub</li>
+        <li>Docker / VirtualBox</li>
+    </ul>
+</section>
+
+<section id="projects" class="fade-in">
+    <h2>Projects</h2>
+    <div class="grid">
+        <div class="card">
+            <h3>MindStone</h3>
+            <p>A Go-based application built for task progress logging, mood tracking, and stress analytics, designed with clean architecture.</p>
         </div>
-    </section>
+        <div class="card">
+            <h3>TEL-U SMP Server</h3>
+            <p>A custom Minecraft Bedrock Edition dedicated server. Developed custom role-selection systems using JavaScript Scripting API and JSON manifests.</p>
+        </div>
+    </div>
+</section>
 
-    <section>
-        <h2>Kontak & Profil</h2>
-        <p>Kunjungi GitHub saya: <a href="https://github.com/lemostree" target="_blank">github.com/lemostree</a></p>
-    </section>
+<section id="contact" class="fade-in">
+    <h2>Contact</h2>
+    <form onsubmit="event.preventDefault(); alert('Message sent successfully!');">
+        <input type="text" placeholder="Name" required>
+        <input type="email" placeholder="Email" required>
+        <textarea rows="5" placeholder="Message" required></textarea>
+        <button type="submit">Send Message</button>
+    </form>
+</section>
 
+<footer>
+    <p>&copy; 2026 LemosTree. All rights reserved.</p>
+</footer>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const faders = document.querySelectorAll('.fade-in');
+        const appearOptions = { threshold: 0.15, rootMargin: "0px 0px -50px 0px" };
+
+        const appearOnScroll = new IntersectionObserver(function(entries, observer) {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add('appear');
+                observer.unobserve(entry.target);
+            });
+        }, appearOptions);
+
+        faders.forEach(fader => {
+            appearOnScroll.observe(fader);
+        });
+    });
+</script>
 </body>
 </html>
