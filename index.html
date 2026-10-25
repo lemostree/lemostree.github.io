@@ -6,175 +6,114 @@
     <title>LemosTree For Fun</title>
     <style>
         :root {
-            --bg-color: #EAE0C8;      /* Pearl background */
-            --card-bg: #F5EFE6;       /* Soft cream untuk kartu */
-            --text-main: #2F3E46;     /* Slate gelap untuk teks utama */
-            --text-muted: #576872;    /* Slate medium untuk teks sekunder */
-            --border-color: #D3C5A8;  /* Garis batas selaras dengan Pearl */
-            --accent: #708090;        /* Slate Gray sebagai aksen utama */
-            --accent-hover: #5A6978;  /* Slate Gray lebih gelap untuk hover */
+            --bg-color: #EAE0C8;      
+            --card-bg: #F5EFE6;       
+            --text-main: #2F3E46;     
+            --text-muted: #576872;    
+            --border-color: #D3C5A8;  
+            --accent: #708090;        
+            --accent-hover: #5A6978;  
         }
-        html {
-            scroll-behavior: smooth;
-        }
+        html { scroll-behavior: smooth; }
         body {
             margin: 0;
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-main);
             line-height: 1.7;
+            overflow-x: hidden;
         }
         a { text-decoration: none; color: var(--accent); }
 
         /* Navbar Styling */
         nav {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background: #5A6978;
+            top: 0; left: 0; width: 100%;
+            background: rgba(90, 105, 120, 0.9);
             backdrop-filter: blur(8px);
             border-bottom: 1px solid var(--border-color);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 40px;
-            box-sizing: border-box;
-            z-index: 1000;
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 20px 40px; box-sizing: border-box; z-index: 1000;
         }
-        .nav-logo {
-            font-size: 1.25rem;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-            color: #fff;
-        }
-        .nav-links {
-            list-style: none;
-            display: flex;
-            gap: 30px;
-            margin: 0;
-            padding: 0;
-        }
-        .nav-right {
-            display: flex;
-            align-items: center;
-            gap: 24px;
-        }
-        .nav-links a {
-            color: #EAE0C8;
-            font-size: 0.95rem;
-            font-weight: 500;
-            transition: color 0.2s ease;
-        }
-        .nav-links a:hover {
-            color: #fff;
-        }
-        .nav-profile-img {
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 1.5px solid var(--accent);
-        }
-        @media (max-width: 640px) {
-            nav {
-                flex-wrap: wrap;
-                padding: 12px 16px;
-                row-gap: 8px;
-            }
-            .nav-right {
-                width: 100%;
-                justify-content: space-between;
-                gap: 12px;
-            }
-            .nav-links {
-                flex-wrap: wrap;
-                gap: 8px clamp(10px, 3vw, 18px);
-            }
-            .nav-links a {
-                font-size: 0.85rem;
-            }
-            .nav-profile-img {
-                width: 32px;
-                height: 32px;
-                flex-shrink: 0;
-            }
-        }
-        /* Header / Hero Section */
+        .nav-logo { font-size: 1.25rem; font-weight: 700; letter-spacing: -0.5px; color: #fff; }
+        .nav-links { list-style: none; display: flex; gap: 30px; margin: 0; padding: 0; }
+        .nav-right { display: flex; align-items: center; gap: 24px; }
+        .nav-links a { color: #EAE0C8; font-size: 0.95rem; font-weight: 500; transition: color 0.2s ease; }
+        .nav-links a:hover { color: #fff; }
+        .nav-profile-img { width: 38px; height: 38px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--accent); }
+
+        /* -------------------------------------
+           HEADER & BACKGROUND KOLASE FOTO 
+           ------------------------------------- */
         header {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 0 20px;
+            position: relative; height: 100vh;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; padding: 0 20px; overflow: hidden; color: #fff; 
         }
-        h1 { 
-            font-size: 3.5rem; 
-            margin-bottom: 10px; 
-            font-weight: 700; 
-            letter-spacing: -1.5px; 
-            color: var(--text-main);
+
+        /* Pembungkus Tumpukan Foto */
+        .header-bg-wrapper {
+            position: absolute; top: 50%; left: 50%; width: 120vw; height: 150vh;
+            transform: translate(-50%, -50%) rotate(-8deg); 
+            z-index: -2; display: flex; flex-direction: column; gap: 15px; justify-content: center;
         }
-        p.subtitle { 
-            font-size: 1.25rem; 
-            color: var(--text-muted); 
-            max-width: 650px; 
+
+        /* Baris Foto */
+        .slider-track { display: flex; gap: 15px; width: max-content; }
+
+        /* Animasi Mengalir dari Kiri ke Kanan */
+        .track-fast { animation: scrollRight 60s linear infinite; }
+        .track-slow { animation: scrollRight 80s linear infinite; }
+        .track-medium { animation: scrollRight 70s linear infinite; }
+        .track-v-slow { animation: scrollRight 90s linear infinite; }
+
+        @keyframes scrollRight {
+            0% { transform: translateX(-50%); }
+            100% { transform: translateX(0%); }
         }
+
+        .slider-track img {
+            height: 22vh; width: auto; min-width: 250px;
+            object-fit: cover; border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            filter: grayscale(10%) contrast(105%); 
+        }
+
+        /* Lapisan Gelap Transparan di atas Foto */
+        .header-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, rgba(47, 62, 70, 0.65), rgba(47, 62, 70, 0.9));
+            z-index: -1;
+        }
+
+        /* Animasi Teks */
+        @keyframes slideInFromLeft {
+            0% { opacity: 0; transform: translateX(-80px); }
+            100% { opacity: 1; transform: translateX(0); }
+        }
+        .moving-text { animation: slideInFromLeft 1.2s ease-out forwards; }
+
+        h1 { font-size: 4.5rem; margin-bottom: 10px; font-weight: 800; letter-spacing: -2px; color: #fff; text-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+        p.subtitle { font-size: 1.25rem; color: #EAE0C8; max-width: 650px; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
         
-        section {
-            padding: 90px 20px;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        h2 { 
-            font-size: 2rem; 
-            margin-bottom: 40px; 
-            border-bottom: 1px solid var(--border-color); 
-            padding-bottom: 10px; 
-            font-weight: 600; 
-            color: var(--text-main);
-        }
+        /* Layout Sisa Halaman */
+        section { padding: 90px 20px; max-width: 800px; margin: 0 auto; }
+        h2 { font-size: 2rem; margin-bottom: 40px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; font-weight: 600; color: var(--text-main); }
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
-        .card {
-            background: var(--card-bg);
-            padding: 24px;
-            border: 1px solid var(--border-color);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
+        .card { background: var(--card-bg); padding: 24px; border: 1px solid var(--border-color); transition: transform 0.3s ease, box-shadow 0.3s ease; }
         .card:hover { transform: translateY(-5px); box-shadow: 0 12px 24px rgba(112, 128, 144, 0.15); }
         .card h3 { margin-top: 0; font-size: 1.25rem; color: var(--text-main); }
         .skills-list { display: flex; flex-wrap: wrap; gap: 10px; padding: 0; list-style: none; }
-        .skills-list li { 
-            background: var(--card-bg); 
-            border: 1px solid var(--border-color); 
-            padding: 6px 16px; 
-            font-size: 0.9rem; 
-            border-radius: 20px; 
-            color: var(--text-main);
-        }
+        .skills-list li { background: var(--card-bg); border: 1px solid var(--border-color); padding: 6px 16px; font-size: 0.9rem; border-radius: 20px; color: var(--text-main); }
         
-        /* Contact Form */
         form { display: flex; flex-direction: column; gap: 16px; }
-        input, textarea {
-            width: 100%; padding: 14px;
-            border: 1px solid var(--border-color);
-            background: var(--card-bg); color: var(--text-main);
-            font-family: inherit; font-size: 1rem;
-            box-sizing: border-box;
-            transition: border-color 0.2s;
-        }
+        input, textarea { width: 100%; padding: 14px; border: 1px solid var(--border-color); background: var(--card-bg); color: var(--text-main); font-family: inherit; font-size: 1rem; box-sizing: border-box; transition: border-color 0.2s; }
         input:focus, textarea:focus { outline: none; border-color: var(--accent); }
-        button {
-            padding: 14px 20px; background: var(--accent); color: #fff;
-            border: none; cursor: pointer; font-size: 1rem; font-weight: 500; transition: background 0.3s ease;
-        }
+        button { padding: 14px 20px; background: var(--accent); color: #fff; border: none; cursor: pointer; font-size: 1rem; font-weight: 500; transition: background 0.3s ease; }
         button:hover { background: var(--accent-hover); }
         
         footer { text-align: center; padding: 40px 20px; background: #2d2b27; color: #fff; font-size: 0.9rem; border-top: 1px solid var(--border-color); }
         
-        /* Fade-in Animation Classes */
         .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
         .fade-in.appear { opacity: 1; transform: translateY(0); }
     </style>
@@ -191,14 +130,19 @@
             <li><a href="#projects">Projects</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
-        <!-- Pastikan nama file foto Anda sesuai, contoh: profile.jpg atau profile.png -->
-        <img src="profile.jpg" alt="Foto Profil" class="nav-profile-img">
+        <img src="profile.jpg" alt="Foto Profil" class="nav-profile-img" onerror="this.src='profile.png'">
     </div>
 </nav>
 
-<header id="home" class="fade-in">
-    <h1>LemosTree</h1>
-    <p class="subtitle">Software Engineer & Game Developer</p>
+<!-- Header dengan Background Kolase Foto Bergerak -->
+<header id="home">
+    <div class="header-bg-wrapper" id="photoContainer">
+        <!-- JS akan menyuntikkan 4 baris foto dari folder "background png" -->
+    </div>
+    <div class="header-overlay"></div>
+
+    <h1 class="moving-text">LemosTree</h1>
+    <p class="subtitle moving-text" style="animation-delay: 0.2s;">Software Engineer & Game Developer</p>
 </header>
 
 <section id="about" class="fade-in">
@@ -250,6 +194,36 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
+        // --- SCRIPT UNTUK GENERATE FOTO DARI FOLDER "background png" ---
+        const totalPhotos = 61; // Memindai angka 1 sampai 61
+        const tracksCount = 4;  // Dibagi menjadi 4 baris bergerak
+        const photoContainer = document.getElementById('photoContainer');
+        const speedClasses = ['track-fast', 'track-slow', 'track-medium', 'track-v-slow'];
+        
+        let photoHTMLs = Array.from({ length: tracksCount }, () => []);
+
+        // Membagi foto ke dalam 4 baris. 
+        // Menggunakan folder "background png" sesuai struktur folder Anda.
+        for (let i = 1; i <= totalPhotos; i++) {
+            // Gunakan ekstensi .png, jika ternyata JPG ganti menjadi .jpg atau .jpeg
+            // Atribut onerror akan menyembunyikan <img> jika file nomor tersebut (misal nomor 18) tidak ada.
+            const imgHTML = `<img src="background png/${i}.webp" alt="BG ${i}" onerror="this.style.display='none'">`;
+            photoHTMLs[i % tracksCount].push(imgHTML);
+        }
+
+        // Memasukkan foto ke dalam elemen HTML
+        photoHTMLs.forEach((trackPhotos, index) => {
+            const trackDiv = document.createElement('div');
+            trackDiv.className = `slider-track ${speedClasses[index]}`;
+            
+            const trackContent = trackPhotos.join('');
+            // Digandakan agar efek infinite scroll berjalan mulus
+            trackDiv.innerHTML = trackContent + trackContent; 
+            
+            photoContainer.appendChild(trackDiv);
+        });
+
+        // --- SCRIPT UNTUK FADE IN SCROLL ---
         const faders = document.querySelectorAll('.fade-in');
         const appearOptions = { threshold: 0.15, rootMargin: "0px 0px -50px 0px" };
 
