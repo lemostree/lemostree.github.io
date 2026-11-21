@@ -31,7 +31,7 @@
             top: 0; left: 0; width: 100%;
             background: rgba(90, 105, 120, 0.9);
             backdrop-filter: blur(8px);
-            border-bottom: none; /* <--- GARIS DIHILANGKAN DI SINI */
+            border-bottom: none;
             display: flex; justify-content: space-between; align-items: center;
             padding: 20px 40px; box-sizing: border-box; z-index: 1000;
         }
@@ -96,37 +96,19 @@
         h1 { font-size: 4.5rem; margin-bottom: 10px; font-weight: 800; letter-spacing: -2px; color: #fff; text-shadow: 0 4px 15px rgba(0,0,0,0.5); }
         p.subtitle { font-size: 1.25rem; color: #EAE0C8; max-width: 650px; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
         
-        /* Layout Sisa Halaman */
-        section { padding: 90px 20px; max-width: 800px; margin: 0 auto; }
-        h2 { font-size: 2rem; margin-bottom: 40px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; font-weight: 600; color: var(--text-main); }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
-        .card { background: var(--card-bg); padding: 24px; border: 1px solid var(--border-color); transition: transform 0.3s ease, box-shadow 0.3s ease; }
-        .card:hover { transform: translateY(-5px); box-shadow: 0 12px 24px rgba(112, 128, 144, 0.15); }
-        .card h3 { margin-top: 0; font-size: 1.25rem; color: var(--text-main); }
-        .skills-list { display: flex; flex-wrap: wrap; gap: 10px; padding: 0; list-style: none; }
-        .skills-list li { background: var(--card-bg); border: 1px solid var(--border-color); padding: 6px 16px; font-size: 0.9rem; border-radius: 20px; color: var(--text-main); }
-        
-        form { display: flex; flex-direction: column; gap: 16px; }
-        input, textarea { width: 100%; padding: 14px; border: 1px solid var(--border-color); background: var(--card-bg); color: var(--text-main); font-family: inherit; font-size: 1rem; box-sizing: border-box; transition: border-color 0.2s; }
-        input:focus, textarea:focus { outline: none; border-color: var(--accent); }
-        button { padding: 14px 20px; background: var(--accent); color: #fff; border: none; cursor: pointer; font-size: 1rem; font-weight: 500; transition: background 0.3s ease; }
-        button:hover { background: var(--accent-hover); }
-        
         footer { text-align: center; padding: 40px 20px; background: #2d2b27; color: #fff; font-size: 0.9rem; border-top: 1px solid var(--border-color); }
         
-        .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
-        .fade-in.appear { opacity: 1; transform: translateY(0); }
         /* --- PENGATURAN RESPONSIF UNTUK HP / MOBILE --- */
         @media (max-width: 768px) {
             nav {
                 flex-direction: column; 
-                align-items: flex-start; /* <--- MENGGESER LOGO KE POJOK KIRI */
+                align-items: flex-start;
                 padding: 15px 20px;
                 gap: 12px;
             }
             .nav-right {
                 width: 100%;
-                justify-content: flex-start; /* Mengurutkan menu dari kiri */
+                justify-content: flex-start;
                 gap: 15px;
             }
             .nav-links {
@@ -139,7 +121,7 @@
             .nav-profile-img {
                 width: 32px;
                 height: 32px;
-                margin-left: auto; /* <--- MENDORONG FOTO PROFIL KE POJOK KANAN */
+                margin-left: auto;
             }
             
             h1 {
@@ -160,9 +142,6 @@
     <div class="nav-right">
         <ul class="nav-links">
             <li><a href="#home">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#contact">Contact</a></li>
         </ul>
         <img src="profile.jpg" alt="Foto Profil" class="nav-profile-img" onerror="this.src='profile.png'">
     </div>
@@ -179,89 +158,33 @@
     <p class="subtitle moving-text" style="animation-delay: 0.2s;">Software Engineer & Photographer</p>
 </header>
 
-<section id="about" class="fade-in">
-    <h2>Tentang Saya</h2>
-    <p>Halo! Saya adalah seorang mahasiswa Informatika yang memiliki ketertarikan mendalam pada rekayasa perangkat lunak, integrasi sistem, dan pengembangan dunia game sandbox. Berbasis di lingkungan terminal yang gesit, saya fokus meracik struktur kode yang lugas, terstruktur rapi, dan berorientasi pada performa optimal tanpa kompromi.</p>
-</section>
-
-<section id="skills" class="fade-in">
-    <h2>Keahlian & Teknologi</h2>
-    <ul class="skills-list">
-        <li>Go</li>
-        <li>C++</li>
-        <li>Python</li>
-        <li>MySQL</li>
-        <li>Laravel</li>
-        <li>JavaScript (API & Scripting)</li>
-        <li>Git / GitHub</li>
-        <li>Docker / VirtualBox</li>
-    </ul>
-</section>
-
-<section id="projects" class="fade-in">
-    <h2>Proyek Unggulan</h2>
-    <div class="grid">
-        <div class="card">
-            <h3>MindStone</h3>
-            <p>Aplikasi berbasis Go yang dirancang untuk pencatatan progres tugas, pelacakan suasana hati (mood), serta analisis tingkat stres dengan pendekatan arsitektur kode yang bersih.</p>
-        </div>
-        <div class="card">
-            <h3>Server TEL-U SMP</h3>
-            <p>Pengembangan server khusus Minecraft Bedrock Edition. Menciptakan sistem pemilihan peran (role-selection) mandiri menggunakan JavaScript Scripting API dan manifest JSON.</p>
-        </div>
-    </div>
-</section>
-
-
 <footer>
-    <p>&copy; 2026 LemosTree. Hak cipta dilindungi.</p>
+    <p>© 2026 LemosTree. Hak cipta dilindungi.</p>
 </footer>
 
 <script>
     document.addEventListener('DOMContentLoaded', () => {
         // --- SCRIPT UNTUK GENERATE FOTO DARI FOLDER "background png" ---
-        const totalPhotos = 61; // Memindai angka 1 sampai 61
-        const tracksCount = 4;  // Dibagi menjadi 4 baris bergerak
+        const totalPhotos = 61; 
+        const tracksCount = 4;  
         const photoContainer = document.getElementById('photoContainer');
         const speedClasses = ['track-fast', 'track-slow', 'track-medium', 'track-v-slow'];
         
         let photoHTMLs = Array.from({ length: tracksCount }, () => []);
 
-        // Membagi foto ke dalam 4 baris. 
-        // Menggunakan folder "background png" sesuai struktur folder Anda.
         for (let i = 1; i <= totalPhotos; i++) {
-            // Gunakan ekstensi .png, jika ternyata JPG ganti menjadi .jpg atau .jpeg
-            // Atribut onerror akan menyembunyikan <img> jika file nomor tersebut (misal nomor 18) tidak ada.
             const imgHTML = `<img src="background png/${i}.webp" alt="BG ${i}" onerror="this.style.display='none'">`;
             photoHTMLs[i % tracksCount].push(imgHTML);
         }
 
-        // Memasukkan foto ke dalam elemen HTML
         photoHTMLs.forEach((trackPhotos, index) => {
             const trackDiv = document.createElement('div');
             trackDiv.className = `slider-track ${speedClasses[index]}`;
             
             const trackContent = trackPhotos.join('');
-            // Digandakan agar efek infinite scroll berjalan mulus
             trackDiv.innerHTML = trackContent + trackContent; 
             
             photoContainer.appendChild(trackDiv);
-        });
-
-        // --- SCRIPT UNTUK FADE IN SCROLL ---
-        const faders = document.querySelectorAll('.fade-in');
-        const appearOptions = { threshold: 0.15, rootMargin: "0px 0px -50px 0px" };
-
-        const appearOnScroll = new IntersectionObserver(function(entries, observer) {
-            entries.forEach(entry => {
-                if (!entry.isIntersecting) return;
-                entry.target.classList.add('appear');
-                observer.unobserve(entry.target);
-            });
-        }, appearOptions);
-
-        faders.forEach(fader => {
-            appearOnScroll.observe(fader);
         });
     });
 </script>
