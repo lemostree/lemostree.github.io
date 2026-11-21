@@ -51,17 +51,14 @@
             text-align: center; padding: 0 20px; overflow: hidden; color: #fff; 
         }
 
-        /* Pembungkus Tumpukan Foto */
         .header-bg-wrapper {
             position: absolute; top: 50%; left: 50%; width: 120vw; height: 150vh;
             transform: translate(-50%, -50%) rotate(-8deg); 
             z-index: -2; display: flex; flex-direction: column; gap: 15px; justify-content: center;
         }
 
-        /* Baris Foto */
         .slider-track { display: flex; gap: 15px; width: max-content; }
 
-        /* Animasi Mengalir dari Kiri ke Kanan */
         .track-fast { animation: scrollRight 60s linear infinite; }
         .track-slow { animation: scrollRight 80s linear infinite; }
         .track-medium { animation: scrollRight 70s linear infinite; }
@@ -79,14 +76,12 @@
             filter: grayscale(10%) contrast(105%); 
         }
 
-        /* Lapisan Gelap Transparan di atas Foto */
         .header-overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(to bottom, rgba(47, 62, 70, 0.65), rgba(47, 62, 70, 0.9));
             z-index: -1;
         }
 
-        /* Animasi Teks */
         @keyframes slideInFromLeft {
             0% { opacity: 0; transform: translateX(-80px); }
             100% { opacity: 1; transform: translateX(0); }
@@ -97,6 +92,294 @@
         p.subtitle { font-size: 1.25rem; color: #EAE0C8; max-width: 650px; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
         
         footer { text-align: center; padding: 40px 20px; background: #2d2b27; color: #fff; font-size: 0.9rem; border-top: 1px solid var(--border-color); }
+
+        /* -------------------------------------
+           FLOATING MUSIC BUTTON & MENU (KIRI BAWAH)
+           ------------------------------------- */
+        .music-widget {
+            position: fixed;
+            bottom: 24px;
+            left: 24px;
+            z-index: 1500;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .music-menu {
+            display: none;
+            flex-direction: column;
+            min-width: 250px;
+            background: rgba(47, 62, 70, 0.95);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(234, 224, 200, 0.25);
+            border-radius: 14px;
+            padding: 8px;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.45);
+            animation: slideUpMenu 0.2s ease-out;
+        }
+
+        .music-menu.open {
+            display: flex;
+        }
+
+        @keyframes slideUpMenu {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .music-menu-header {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: #EAE0C8;
+            opacity: 0.7;
+            padding: 6px 12px 4px;
+        }
+
+        .music-option {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            background: transparent;
+            border: none;
+            color: #fff;
+            font-family: inherit;
+            font-size: 0.9rem;
+            font-weight: 500;
+            padding: 10px 12px;
+            border-radius: 10px;
+            cursor: pointer;
+            text-align: left;
+            transition: background 0.2s ease;
+        }
+
+        .music-option:hover {
+            background: rgba(234, 224, 200, 0.16);
+        }
+
+        .music-option-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .music-option .badge {
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 999px;
+            background: rgba(255, 59, 59, 0.2);
+            color: #ff6b6b;
+            border: 1px solid rgba(255, 59, 59, 0.35);
+        }
+
+        .music-fab {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: rgba(90, 105, 120, 0.92);
+            backdrop-filter: blur(8px);
+            border: 1.5px solid rgba(234, 224, 200, 0.4);
+            color: #EAE0C8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35);
+            transition: all 0.25s ease;
+        }
+
+        .music-fab:hover {
+            background: #EAE0C8;
+            color: #2F3E46;
+            transform: scale(1.06);
+        }
+
+        .music-fab svg {
+            width: 22px;
+            height: 22px;
+            fill: currentColor;
+        }
+
+        /* -------------------------------------
+           POP-UP MODAL & ANIMASI KAMERA 3D
+           ------------------------------------- */
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(20, 26, 30, 0.85);
+            backdrop-filter: blur(10px);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            animation: fadeInModal 0.3s ease;
+        }
+
+        .popup-box {
+            position: relative;
+            width: 100%;
+            max-width: 880px;
+            height: 540px;
+            background: #030303;
+            border: 1px solid rgba(234, 224, 200, 0.2);
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.9), 0 0 35px rgba(255, 34, 34, 0.12);
+            font-family: 'Fira Code', 'Consolas', 'Courier New', monospace;
+            color: #e0e0e0;
+            text-align: left;
+        }
+
+        .popup-title-bar {
+            position: absolute;
+            top: 16px;
+            left: 20px;
+            z-index: 20;
+            font-size: 0.8rem;
+            color: rgba(234, 224, 200, 0.6);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            pointer-events: none;
+        }
+
+        .popup-title-bar .rec-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #ff2222;
+            box-shadow: 0 0 8px #ff2222;
+        }
+
+        .popup-close {
+            position: absolute;
+            top: 14px;
+            right: 16px;
+            z-index: 20;
+            background: rgba(255, 255, 255, 0.12);
+            color: #EAE0C8;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+        .popup-close:hover {
+            background: #ff2222;
+            color: #fff;
+            border-color: #ff2222;
+        }
+
+        @keyframes fadeInModal {
+            from { opacity: 0; transform: scale(0.96); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .camera-viewport {
+            width: 100%;
+            height: 100%;
+            perspective: 1000px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            box-shadow: inset 0 0 150px rgba(0, 0, 0, 0.95);
+        }
+
+        .camera-rig {
+            transform-style: preserve-3d;
+            will-change: transform;
+            position: relative;
+        }
+
+        .editor-container {
+            padding: 40px;
+            position: relative;
+            transform-style: preserve-3d;
+        }
+
+        .code-line {
+            display: flex;
+            align-items: center;
+            min-height: 42px;
+            font-size: 1.5rem;
+            line-height: 1.7;
+            letter-spacing: 0.5px;
+            position: relative;
+        }
+
+        .line-num {
+            color: #3a3a3a;
+            width: 48px;
+            user-select: none;
+            font-size: 0.9rem;
+            text-align: right;
+            padding-right: 22px;
+        }
+
+        .code-content { white-space: pre; position: relative; }
+
+        /* Syntax Highlighting */
+        .kw { color: #ff4747; font-weight: bold; }
+        .str { color: #ff9f43; }
+        .fn { color: #ff5252; }
+        .fn-alt { color: #ffbe76; }
+        .prop { color: #70a1ff; }
+        .prop-alt { color: #ffbe76; }
+        .comment { color: #636e72; }
+        .op { color: #dfe4ea; }
+
+        /* Kursor Merah Menyala */
+        .cursor {
+            display: inline-block;
+            width: 13px;
+            height: 26px;
+            background-color: #ff2222;
+            box-shadow: 0 0 15px #ff2222, 0 0 30px #ff0000;
+            vertical-align: middle;
+            margin-left: 3px;
+            animation: blink 0.75s infinite;
+        }
+
+        @keyframes blink {
+            0%, 49% { opacity: 1; }
+            50%, 100% { opacity: 0; }
+        }
+
+        /* Pantulan Cermin di kata mirror */
+        .mirror-reflection { position: relative; display: inline-block; }
+        .mirror-reflection::after {
+            content: "mirror";
+            position: absolute;
+            left: 0;
+            top: 100%;
+            transform: scaleY(-1);
+            color: rgba(112, 161, 255, 0.25);
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            pointer-events: none;
+            mask-image: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+            -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+        }
+
+        /* Efek Tumpukan Echo */
+        .echo-ghost {
+            position: absolute;
+            left: 0;
+            color: rgba(255, 255, 255, 0.12);
+            pointer-events: none;
+            white-space: pre;
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
         
         /* --- PENGATURAN RESPONSIF UNTUK HP / MOBILE --- */
         @media (max-width: 768px) {
@@ -131,7 +414,19 @@
                 font-size: 1rem;
                 padding: 0 10px;
             }
+            .music-widget {
+                bottom: 18px;
+                left: 18px;
+            }
+            .popup-box {
+                height: 420px;
+            }
+            .code-line {
+                font-size: 1.05rem;
+                min-height: 32px;
+            }
         }
+
         /* Footer & Link Instagram */
         .footer-ig {
             display: inline-flex;
@@ -188,6 +483,45 @@
     <p class="subtitle moving-text" style="animation-delay: 0.2s;">Software Engineer & Photographer</p>
 </header>
 
+<!-- Tombol Musik & Pilihan Lagu di Pojok Kiri Bawah -->
+<div class="music-widget" id="musicWidget">
+    <div class="music-menu" id="musicMenu">
+        <div class="music-menu-header">Pilih Musik</div>
+        <button class="music-option" onclick="pilihMusik('idontwanabeyoueneymore')">
+            <span class="music-option-left">
+                <span>🎵</span>
+                <span>idontwanabeyoueneymore</span>
+            </span>
+            <span class="badge">Code</span>
+        </button>
+    </div>
+
+    <button class="music-fab" id="musicFab" onclick="toggleMusicMenu()" title="Pilih Musik" aria-label="Pilih Musik">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/>
+        </svg>
+    </button>
+</div>
+
+<!-- Modal Pop-Up Animasi Kode 3D -->
+<div id="popupAnimasi" class="popup-overlay" onclick="tutupPopupLuar(event)">
+    <div class="popup-box">
+        <div class="popup-title-bar">
+            <span class="rec-dot"></span>
+            <span id="popupSongTitle">idontwanabeyoueneymore.js</span>
+        </div>
+        <button class="popup-close" onclick="tutupPopupAnimasi()" title="Tutup">✕</button>
+        <div class="camera-viewport">
+            <div class="camera-rig" id="cameraRig">
+                <div class="editor-container" id="editor"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Audio Pemutar -->
+<audio id="audioPlayer" preload="auto"></audio>
+
 <footer>
     <a href="https://www.instagram.com/lemos.tree/" target="_blank" rel="noopener noreferrer" class="footer-ig">
         <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -223,6 +557,240 @@
             photoContainer.appendChild(trackDiv);
         });
     });
+
+    // --- MENU PILIH MUSIK DI KIRI BAWAH ---
+    const musicMenu = document.getElementById('musicMenu');
+    const musicWidget = document.getElementById('musicWidget');
+
+    function toggleMusicMenu() {
+        musicMenu.classList.toggle('open');
+    }
+
+    // Tutup menu pilihan lagu jika klik di luar widget musik
+    document.addEventListener('click', (e) => {
+        if (!musicWidget.contains(e.target)) {
+            musicMenu.classList.remove('open');
+        }
+    });
+
+    // Daftar lagu yang tersedia (bisa ditambah lagu lain di sini)
+    const musicCatalog = {
+        idontwanabeyoueneymore: {
+            title: 'idontwanabeyoueneymore.js',
+            audioSrc: 'idontwanabeyoueneymore.mp3',
+            lines: [
+                { line: '01', startTime: 0.2, speed: 65, zoom: 2.1, rotateX: 4, rotateY: -6, rotateZ: -1.5,
+                  tokens: [{ text: 'if', cls: 'kw' }, { text: ' (', cls: 'op' }, { text: '"I love you"', cls: 'str' }, { text: ' === promise) {', cls: 'op' }] },
+                { line: '02', startTime: 4.1, speed: 60, zoom: 1.95, rotateX: 2, rotateY: 4, rotateZ: 1,
+                  tokens: [{ text: '  wouldYou.', cls: 'op' }, { text: 'break', cls: 'fn' }, { text: '(it);', cls: 'op' }] },
+                { line: '03', startTime: 6.0, speed: 40, zoom: 1.65, rotateX: 0, rotateY: 0, rotateZ: 0,
+                  tokens: [{ text: '}', cls: 'op' }] },
+                { line: '04', startTime: 6.3, speed: 10, zoom: 1.65, rotateX: 0, rotateY: 0, rotateZ: 0, tokens: [] },
+                { line: '05', startTime: 6.6, speed: 55, zoom: 1.9, rotateX: 5, rotateY: -5, rotateZ: -1,
+                  tokens: [{ text: 'if', cls: 'kw' }, { text: ' (you.', cls: 'op' }, { text: 'areHonest', cls: 'prop' }, { text: ') {', cls: 'op' }] },
+                { line: '06', startTime: 8.8, speed: 55, zoom: 2.05, rotateX: 6, rotateY: 5, rotateZ: 1.2,
+                  tokens: [{ text: '  ', cls: 'op' }, { text: 'tell', cls: 'fn-alt' }, { text: '(', cls: 'op' }, { text: 'mirror', cls: 'prop mirror-reflection' }, { text: ', what.', cls: 'op' }, { text: 'youKnow', cls: 'prop-alt' }, { text: ');', cls: 'op' }] },
+                { line: '07', startTime: 11.4, speed: 35, zoom: 1.75, rotateX: 2, rotateY: 0, rotateZ: 0,
+                  tokens: [{ text: '}', cls: 'op' }] },
+                { line: '08', startTime: 11.6, speed: 10, zoom: 1.75, rotateX: 2, rotateY: 0, rotateZ: 0, tokens: [] },
+                { line: '09', startTime: 11.9, speed: 55, zoom: 1.85, rotateX: 8, rotateY: -4, rotateZ: -1, echoEffect: true,
+                  tokens: [{ text: '// she\'s heard before', cls: 'comment' }] },
+                { line: '10', startTime: 17.5, speed: 10, zoom: 1.85, rotateX: 0, rotateY: 0, rotateZ: 0, tokens: [] },
+                { line: '11', startTime: 18.0, speed: 80, zoom: 2.15, rotateX: 3, rotateY: -3, rotateZ: -0.8, finalZoomOut: true,
+                  tokens: [{ text: 'I.', cls: 'op' }, { text: 'dontWannaBe', cls: 'fn-alt' }, { text: '(you, ', cls: 'op' }, { text: '"anymore"', cls: 'str' }, { text: ');', cls: 'op' }] }
+            ]
+        }
+    };
+
+    // --- SCRIPT ANIMASI KAMERA 3D & LIRIK KODE ---
+    const editor = document.getElementById('editor');
+    const cameraRig = document.getElementById('cameraRig');
+    const audio = document.getElementById('audioPlayer');
+    const popupSongTitle = document.getElementById('popupSongTitle');
+
+    let currentLines = musicCatalog.idontwanabeyoueneymore.lines;
+    let activeLineIndex = -1;
+    let timeouts = [];
+    let isFinalZoomOut = false;
+    let isPopupOpen = false;
+    let camCurrent = { x: 0, y: 80, zoom: 1.8, rotX: 0, rotY: 0, rotZ: 0 };
+    let camTarget  = { x: 0, y: 80, zoom: 1.8, rotX: 0, rotY: 0, rotZ: 0 };
+
+    function initEditor() {
+        editor.innerHTML = '';
+        timeouts.forEach(clearTimeout);
+        timeouts = [];
+        activeLineIndex = -1;
+        isFinalZoomOut = false;
+        camCurrent = { x: 0, y: 80, zoom: 1.8, rotX: 0, rotY: 0, rotZ: 0 };
+        camTarget  = { x: 0, y: 80, zoom: 1.8, rotX: 0, rotY: 0, rotZ: 0 };
+
+        currentLines.forEach((item, idx) => {
+            const lineDiv = document.createElement('div');
+            lineDiv.className = 'code-line';
+            const numSpan = document.createElement('span');
+            numSpan.className = 'line-num';
+            numSpan.textContent = item.line;
+            const contentSpan = document.createElement('span');
+            contentSpan.className = 'code-content';
+            contentSpan.id = `content-${idx}`;
+            lineDiv.appendChild(numSpan);
+            lineDiv.appendChild(contentSpan);
+            editor.appendChild(lineDiv);
+        });
+    }
+
+    function moveCursorTo(contentEl) {
+        const existingCursor = document.querySelector('.cursor');
+        if (existingCursor) existingCursor.remove();
+        const cursor = document.createElement('span');
+        cursor.className = 'cursor';
+        contentEl.appendChild(cursor);
+    }
+
+    function triggerEchoEffect(contentEl, text) {
+        for (let i = 1; i <= 5; i++) {
+            const ghost = document.createElement('div');
+            ghost.className = 'echo-ghost';
+            ghost.textContent = text;
+            ghost.style.top = `${-i * 22}px`;
+            ghost.style.opacity = `${0.35 - i * 0.06}`;
+            ghost.style.transform = `translateZ(${-i * 15}px)`;
+            contentEl.appendChild(ghost);
+            timeouts.push(setTimeout(() => { ghost.style.opacity = '0'; }, 3800));
+        }
+    }
+
+    function typeLine(index) {
+        const item = currentLines[index];
+        const contentEl = document.getElementById(`content-${index}`);
+        camTarget.zoom = item.zoom;
+        camTarget.rotX = item.rotateX;
+        camTarget.rotY = item.rotateY;
+        camTarget.rotZ = item.rotateZ;
+
+        if (item.tokens.length === 0) return;
+        contentEl.innerHTML = '';
+        moveCursorTo(contentEl);
+
+        let charQueue = [];
+        item.tokens.forEach(token => {
+            if (token.cls.includes('mirror-reflection')) {
+                charQueue.push({ word: token.text, cls: token.cls, isWholeWord: true });
+            } else {
+                for (let char of token.text) charQueue.push({ char, cls: token.cls });
+            }
+        });
+
+        let delay = 0;
+        charQueue.forEach((entry, i) => {
+            delay += item.speed;
+            const t = setTimeout(() => {
+                const span = document.createElement('span');
+                span.className = entry.cls;
+                span.textContent = entry.isWholeWord ? entry.word : entry.char;
+                const cursor = contentEl.querySelector('.cursor');
+                contentEl.insertBefore(span, cursor);
+
+                if (i === charQueue.length - 1) {
+                    if (item.echoEffect) {
+                        triggerEchoEffect(contentEl, "// she's heard before");
+                        camTarget.zoom = 1.45;
+                        camTarget.rotX = 12;
+                    }
+                    if (item.finalZoomOut) {
+                        timeouts.push(setTimeout(() => {
+                            isFinalZoomOut = true;
+                            camTarget = { x: 0, y: 0, zoom: 1.0, rotX: 0, rotY: 0, rotZ: 0 };
+                        }, 700));
+                    }
+                }
+            }, delay);
+            timeouts.push(t);
+        });
+    }
+
+    function updateCameraLoop() {
+        if (isPopupOpen) {
+            const cursor = document.querySelector('.cursor');
+            if (cursor && !isFinalZoomOut) {
+                const editorRect = editor.getBoundingClientRect();
+                const cursorRect = cursor.getBoundingClientRect();
+                const relX = (cursorRect.left - editorRect.left) / camCurrent.zoom - (editorRect.width / camCurrent.zoom) / 2;
+                const relY = (cursorRect.top - editorRect.top) / camCurrent.zoom - (editorRect.height / camCurrent.zoom) / 2;
+                camTarget.x = -relX;
+                camTarget.y = -relY;
+            }
+
+            const ease = isFinalZoomOut ? 0.045 : 0.08;
+            camCurrent.x += (camTarget.x - camCurrent.x) * ease;
+            camCurrent.y += (camTarget.y - camCurrent.y) * ease;
+            camCurrent.zoom += (camTarget.zoom - camCurrent.zoom) * ease;
+            camCurrent.rotX += (camTarget.rotX - camCurrent.rotX) * ease;
+            camCurrent.rotY += (camTarget.rotY - camCurrent.rotY) * ease;
+            camCurrent.rotZ += (camTarget.rotZ - camCurrent.rotZ) * ease;
+
+            cameraRig.style.transform = `scale(${camCurrent.zoom}) rotateX(${camCurrent.rotX}deg) rotateY(${camCurrent.rotY}deg) rotateZ(${camCurrent.rotZ}deg) translate3d(${camCurrent.x}px, ${camCurrent.y}px, 0px)`;
+        }
+        requestAnimationFrame(updateCameraLoop);
+    }
+
+    audio.addEventListener('timeupdate', () => {
+        const currentTime = audio.currentTime;
+        for (let i = 0; i < currentLines.length; i++) {
+            if (currentTime >= currentLines[i].startTime && activeLineIndex < i) {
+                activeLineIndex = i;
+                typeLine(i);
+            }
+        }
+    });
+
+    // --- KONTROL PILIH LAGU & POP-UP ---
+    function pilihMusik(trackKey) {
+        const song = musicCatalog[trackKey];
+        if (!song) return;
+
+        musicMenu.classList.remove('open');
+        currentLines = song.lines;
+        popupSongTitle.textContent = song.title;
+        audio.src = song.audioSrc;
+
+        const popup = document.getElementById('popupAnimasi');
+        popup.style.display = 'flex';
+        isPopupOpen = true;
+        initEditor();
+        audio.currentTime = 0;
+        audio.play().catch(() => {
+            currentLines.forEach((item, idx) => {
+                timeouts.push(setTimeout(() => typeLine(idx), item.startTime * 1000));
+            });
+        });
+    }
+
+    function tutupPopupAnimasi() {
+        const popup = document.getElementById('popupAnimasi');
+        popup.style.display = 'none';
+        isPopupOpen = false;
+        audio.pause();
+        audio.currentTime = 0;
+        initEditor();
+    }
+
+    function tutupPopupLuar(event) {
+        if (event.target.id === 'popupAnimasi') {
+            tutupPopupAnimasi();
+        }
+    }
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            musicMenu.classList.remove('open');
+            if (isPopupOpen) tutupPopupAnimasi();
+        }
+    });
+
+    initEditor();
+    requestAnimationFrame(updateCameraLoop);
 </script>
 </body>
 </html>
