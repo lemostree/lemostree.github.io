@@ -36,9 +36,9 @@
             padding: 20px 40px; box-sizing: border-box; z-index: 1000;
         }
         .nav-logo { font-size: 1.25rem; font-weight: 700; letter-spacing: -0.5px; color: #fff; }
-        .nav-links { list-style: none; display: flex; align-items: center; gap: 30px; margin: 0; padding: 0; }
+        .nav-links { list-style: none; display: flex; gap: 30px; margin: 0; padding: 0; }
         .nav-right { display: flex; align-items: center; gap: 24px; }
-        .nav-links a { color: #EAE0C8; font-size: 0.95rem; font-weight: 500; transition: color 0.2s ease; cursor: pointer; }
+        .nav-links a { color: #EAE0C8; font-size: 0.95rem; font-weight: 500; transition: color 0.2s ease; }
         .nav-links a:hover { color: #fff; }
         .nav-profile-img { width: 38px; height: 38px; border-radius: 50%; object-fit: cover; border: 1.5px solid var(--accent); }
 
@@ -51,14 +51,17 @@
             text-align: center; padding: 0 20px; overflow: hidden; color: #fff; 
         }
 
+        /* Pembungkus Tumpukan Foto */
         .header-bg-wrapper {
             position: absolute; top: 50%; left: 50%; width: 120vw; height: 150vh;
             transform: translate(-50%, -50%) rotate(-8deg); 
             z-index: -2; display: flex; flex-direction: column; gap: 15px; justify-content: center;
         }
 
+        /* Baris Foto */
         .slider-track { display: flex; gap: 15px; width: max-content; }
 
+        /* Animasi Mengalir dari Kiri ke Kanan */
         .track-fast { animation: scrollRight 60s linear infinite; }
         .track-slow { animation: scrollRight 80s linear infinite; }
         .track-medium { animation: scrollRight 70s linear infinite; }
@@ -76,12 +79,14 @@
             filter: grayscale(10%) contrast(105%); 
         }
 
+        /* Lapisan Gelap Transparan di atas Foto */
         .header-overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(to bottom, rgba(47, 62, 70, 0.65), rgba(47, 62, 70, 0.9));
             z-index: -1;
         }
 
+        /* Animasi Teks */
         @keyframes slideInFromLeft {
             0% { opacity: 0; transform: translateX(-80px); }
             100% { opacity: 1; transform: translateX(0); }
@@ -89,106 +94,7 @@
         .moving-text { animation: slideInFromLeft 1.2s ease-out forwards; }
 
         h1 { font-size: 4.5rem; margin-bottom: 10px; font-weight: 800; letter-spacing: -2px; color: #fff; text-shadow: 0 4px 15px rgba(0,0,0,0.5); }
-        p.subtitle { font-size: 1.25rem; color: #EAE0C8; max-width: 650px; text-shadow: 0 2px 10px rgba(0,0,0,0.5); margin-bottom: 28px; }
-
-        /* Tombol Khusus di Hero / Header */
-        .hero-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            padding: 12px 26px;
-            border-radius: 999px;
-            background: rgba(234, 224, 200, 0.14);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(234, 224, 200, 0.35);
-            color: #EAE0C8;
-            font-family: inherit;
-            font-size: 0.95rem;
-            font-weight: 600;
-            letter-spacing: 0.3px;
-            cursor: pointer;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
-            transition: all 0.25s ease;
-            opacity: 0;
-            animation: slideInFromLeft 1.2s ease-out 0.35s forwards;
-        }
-        .hero-btn:hover {
-            background: #EAE0C8;
-            color: #2F3E46;
-            transform: translateY(-2px);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
-        }
-        .hero-btn .dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: #ff3b3b;
-            box-shadow: 0 0 8px #ff3b3b;
-        }
-
-        /* -------------------------------------
-           POP-UP MODAL UNTUK ANIMASI KODE
-           ------------------------------------- */
-        .popup-overlay {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(20, 26, 30, 0.85);
-            backdrop-filter: blur(10px);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            animation: fadeInModal 0.3s ease;
-        }
-
-        .popup-box {
-            position: relative;
-            width: 100%;
-            max-width: 880px;
-            height: 540px;
-            background: #030303;
-            border: 1px solid rgba(234, 224, 200, 0.2);
-            border-radius: 18px;
-            overflow: hidden;
-            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.9), 0 0 35px rgba(255, 34, 34, 0.12);
-        }
-
-        .popup-close {
-            position: absolute;
-            top: 14px;
-            right: 16px;
-            z-index: 10;
-            background: rgba(255, 255, 255, 0.12);
-            color: #EAE0C8;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            font-size: 16px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s ease;
-        }
-        .popup-close:hover {
-            background: #ff2222;
-            color: #fff;
-            border-color: #ff2222;
-        }
-
-        .popup-box iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-            display: block;
-        }
-
-        @keyframes fadeInModal {
-            from { opacity: 0; transform: scale(0.96); }
-            to { opacity: 1; transform: scale(1); }
-        }
+        p.subtitle { font-size: 1.25rem; color: #EAE0C8; max-width: 650px; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
         
         footer { text-align: center; padding: 40px 20px; background: #2d2b27; color: #fff; font-size: 0.9rem; border-top: 1px solid var(--border-color); }
         
@@ -225,11 +131,7 @@
                 font-size: 1rem;
                 padding: 0 10px;
             }
-            .popup-box {
-                height: 420px;
-            }
         }
-
         /* Footer & Link Instagram */
         .footer-ig {
             display: inline-flex;
@@ -270,7 +172,6 @@
     <div class="nav-right">
         <ul class="nav-links">
             <li><a href="#home">Home</a></li>
-            <li><a onclick="bukaPopupAnimasi()">Code Lyrics</a></li>
         </ul>
         <img src="profile.jpg" alt="Foto Profil" class="nav-profile-img" onerror="this.src='profile.png'">
     </div>
@@ -285,21 +186,7 @@
 
     <h1 class="moving-text">LemosTree</h1>
     <p class="subtitle moving-text" style="animation-delay: 0.2s;">Software Engineer & Photographer</p>
-
-    <!-- Tombol Khusus Membuka Pop-Up Animasi Kode -->
-    <button class="hero-btn" onclick="bukaPopupAnimasi()">
-        <span class="dot"></span>
-        <span>Play Code Lyrics</span>
-    </button>
 </header>
-
-<!-- Modal Pop-Up (Tanpa Berpindah Halaman) -->
-<div id="popupAnimasi" class="popup-overlay" onclick="tutupPopupLuar(event)">
-    <div class="popup-box">
-        <button class="popup-close" onclick="tutupPopupAnimasi()" title="Tutup">✕</button>
-        <iframe id="frameAnimasi" src="animasi/player.html"></iframe>
-    </div>
-</div>
 
 <footer>
     <a href="https://www.instagram.com/lemos.tree/" target="_blank" rel="noopener noreferrer" class="footer-ig">
@@ -322,45 +209,19 @@
         let photoHTMLs = Array.from({ length: tracksCount }, () => []);
 
         for (let i = 1; i <= totalPhotos; i++) {
-            const imgHTML = `<img src="background png/${i}.webp" alt="BG ${i}" onerror="this.style.display='none'">`; photoHTMLs[i \% tracksCount].push(imgHTML); }  photoHTMLs.forEach((trackPhotos, index) => { const trackDiv = document.createElement('div'); trackDiv.className = `slider-track ${speedClasses[index]}`;
+            const imgHTML = `<img src="background png/${i}.webp" alt="BG ${i}" onerror="this.style.display='none'">`;
+            photoHTMLs[i % tracksCount].push(imgHTML);
+        }
+
+        photoHTMLs.forEach((trackPhotos, index) => {
+            const trackDiv = document.createElement('div');
+            trackDiv.className = `slider-track ${speedClasses[index]}`;
             
             const trackContent = trackPhotos.join('');
             trackDiv.innerHTML = trackContent + trackContent; 
             
             photoContainer.appendChild(trackDiv);
         });
-    });
-
-    // --- KONTROL POP-UP ANIMASI ---
-    function bukaPopupAnimasi() {
-        const popup = document.getElementById('popupAnimasi');
-        const frame = document.getElementById('frameAnimasi');
-        popup.style.display = 'flex';
-        if (frame.contentWindow && frame.contentWindow.mulaiAnimasi) {
-            frame.contentWindow.mulaiAnimasi();
-        }
-    }
-
-    function tutupPopupAnimasi() {
-        const popup = document.getElementById('popupAnimasi');
-        const frame = document.getElementById('frameAnimasi');
-        popup.style.display = 'none';
-        if (frame.contentWindow && frame.contentWindow.hentikanAnimasi) {
-            frame.contentWindow.hentikanAnimasi();
-        }
-    }
-
-    function tutupPopupLuar(event) {
-        if (event.target.id === 'popupAnimasi') {
-            tutupPopupAnimasi();
-        }
-    }
-
-    // Tutup pop-up jika menekan tombol Escape (ESC) di keyboard
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-            tutupPopupAnimasi();
-        }
     });
 </script>
 </body>
