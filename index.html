@@ -234,6 +234,19 @@
             font-family: 'Fira Code', 'Consolas', 'Courier New', monospace;
             color: #e0e0e0;
             text-align: left;
+            transition: box-shadow 0.4s ease, border-color 0.4s ease;
+        }
+
+        /* Efek guncangan halus saat beat drop */
+        @keyframes beatShake {
+            0% { transform: translate(0, 0) scale(1); }
+            20% { transform: translate(-3px, 2px) scale(1.008); }
+            40% { transform: translate(3px, -2px) scale(1.004); }
+            60% { transform: translate(-2px, -1px) scale(1.002); }
+            100% { transform: translate(0, 0) scale(1); }
+        }
+        .popup-box.shake {
+            animation: beatShake 0.35s cubic-bezier(0.36, 0.07, 0.19, 0.97);
         }
 
         /* Grid tipis & ambient glow di latar belakang */
@@ -250,16 +263,16 @@
 
         .ambient-glow {
             position: absolute;
-            width: 340px;
-            height: 340px;
+            width: 380px;
+            height: 380px;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(255, 34, 34, 0.14) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(255, 34, 34, 0.16) 0%, transparent 70%);
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             pointer-events: none;
             z-index: 1;
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, background 0.6s ease;
         }
 
         .popup-title-bar {
@@ -345,9 +358,9 @@
         .code-line {
             display: flex;
             align-items: center;
-            min-height: 42px;
-            font-size: 1.5rem;
-            line-height: 1.7;
+            min-height: 40px;
+            font-size: 1.45rem;
+            line-height: 1.65;
             letter-spacing: 0.5px;
             position: relative;
             padding: 0 10px;
@@ -356,7 +369,7 @@
         }
 
         .code-line.active-line {
-            background: linear-gradient(90deg, rgba(255, 34, 34, 0.08) 0%, transparent 85%);
+            background: linear-gradient(90deg, rgba(255, 34, 34, 0.09) 0%, transparent 85%);
         }
 
         .line-num {
@@ -390,12 +403,27 @@
         /* Syntax Highlighting + Glow */
         .kw { color: #ff4757; font-weight: bold; text-shadow: 0 0 12px rgba(255, 71, 87, 0.45); }
         .str { color: #ffa502; text-shadow: 0 0 12px rgba(255, 165, 2, 0.4); }
+        .toxin { color: #00f5d4; text-shadow: 0 0 14px rgba(0, 245, 212, 0.55); }
+        .med { color: #70a1ff; text-shadow: 0 0 14px rgba(112, 161, 255, 0.55); }
         .fn { color: #ff5252; text-shadow: 0 0 12px rgba(255, 82, 82, 0.45); }
         .fn-alt { color: #ffbe76; text-shadow: 0 0 10px rgba(255, 190, 118, 0.35); }
         .prop { color: #70a1ff; text-shadow: 0 0 12px rgba(112, 161, 255, 0.45); }
         .prop-alt { color: #ffbe76; }
         .comment { color: #747d8c; font-style: italic; }
         .op { color: #f1f2f6; }
+
+        /* Efek Glitch pada kata kunci beracun / dramatis */
+        @keyframes textGlitch {
+            0% { transform: translate(0); text-shadow: -2px 0 #ff2222, 2px 0 #00f5d4; }
+            25% { transform: translate(-2px, 1px); text-shadow: 2px 0 #ff2222, -2px 0 #00f5d4; }
+            50% { transform: translate(2px, -1px); }
+            75% { transform: translate(-1px, -1px); }
+            100% { transform: translate(0); }
+        }
+        .glitch-word {
+            display: inline-block;
+            animation: charPop 0.16s ease-out forwards, textGlitch 0.35s ease-in-out 2;
+        }
 
         /* Kursor Merah Menyala */
         .cursor {
@@ -557,6 +585,13 @@
             </span>
             <span class="badge">Code</span>
         </button>
+        <button class="music-option" onclick="pilihMusik('thecure')">
+            <span class="music-option-left">
+                <span>🔥</span>
+                <span>the cure</span>
+            </span>
+            <span class="badge">Code</span>
+        </button>
     </div>
 
     <button class="music-fab" id="musicFab" onclick="toggleMusicMenu()" title="Pilih Musik" aria-label="Pilih Musik">
@@ -568,12 +603,12 @@
 
 <!-- Modal Pop-Up Animasi Kode 3D -->
 <div id="popupAnimasi" class="popup-overlay" onclick="tutupPopupLuar(event)">
-    <div class="popup-box">
+    <div class="popup-box" id="popupBox">
         <div class="bg-grid"></div>
         <div class="ambient-glow" id="ambientGlow"></div>
         <div class="popup-title-bar">
             <span class="rec-dot"></span>
-            <span id="popupSongTitle">idontwanabeyoueneymore.js</span>
+            <span id="popupSongTitle">idontwanabeyoueneymore.py</span>
         </div>
         <button class="popup-close" onclick="tutupPopupAnimasi()" title="Tutup">✕</button>
         <div class="camera-viewport">
@@ -637,30 +672,28 @@
         }
     });
 
-    // Katalog musik dengan timing yang sudah disinkronkan per frasa vokal
+    // Katalog musik dengan timing presisi per ketukan vokal
     const musicCatalog = {
         idontwanabeyoueneymore: {
-            title: 'idontwanabeyoueneymore.py',
+            title: 'idontwanabeyoueneymore.js',
             audioSrc: 'idontwanabeyoueneymore.mpeg',
             totalLines: 11,
             cues: [
-                // 00:00.1 - "If I love you"
                 {
                     time: 0.1, lineIdx: 0, speed: 55, zoom: 2.25, rotX: 5, rotY: -7, rotZ: -1.5,
+                    glowColor: 'rgba(255, 34, 34, 0.16)',
                     tokens: [
                         { text: 'if', cls: 'kw' },
                         { text: ' (', cls: 'op' },
                         { text: '"I love you"', cls: 'str' }
                     ]
                 },
-                // 00:02.1 - "was a promise"
                 {
                     time: 2.1, lineIdx: 0, speed: 65, zoom: 2.1, rotX: 3, rotY: 5, rotZ: 1.0,
                     tokens: [
-                        { text: ' === promise) {', cls: 'op' }
+                        { text: ' == promise) {', cls: 'op' }
                     ]
                 },
-                // 00:04.2 - "would you break it"
                 {
                     time: 4.2, lineIdx: 1, speed: 60, zoom: 2.0, rotX: 2, rotY: -4, rotZ: -1.0,
                     tokens: [
@@ -669,12 +702,10 @@
                         { text: '(it);', cls: 'op' }
                     ]
                 },
-                // 00:05.9 - tutup kurung }
                 {
                     time: 5.9, lineIdx: 2, speed: 30, zoom: 1.75, rotX: 0, rotY: 0, rotZ: 0,
                     tokens: [{ text: '}', cls: 'op' }]
                 },
-                // 00:06.2 - "If you're honest"
                 {
                     time: 6.2, lineIdx: 4, speed: 55, zoom: 2.05, rotX: 6, rotY: -6, rotZ: -1.2,
                     tokens: [
@@ -684,7 +715,6 @@
                         { text: ') {', cls: 'op' }
                     ]
                 },
-                // 00:08.1 - "tell the mirror"
                 {
                     time: 8.1, lineIdx: 5, speed: 55, zoom: 2.2, rotX: 7, rotY: 6, rotZ: 1.4,
                     tokens: [
@@ -694,7 +724,6 @@
                         { text: 'mirror', cls: 'prop mirror-reflection', isWholeWord: true }
                     ]
                 },
-                // 00:10.0 - "what you know"
                 {
                     time: 10.0, lineIdx: 5, speed: 55, zoom: 1.95, rotX: 4, rotY: -4, rotZ: -0.8,
                     tokens: [
@@ -703,12 +732,10 @@
                         { text: ');', cls: 'op' }
                     ]
                 },
-                // 00:11.3 - tutup kurung }
                 {
                     time: 11.3, lineIdx: 6, speed: 25, zoom: 1.8, rotX: 2, rotY: 0, rotZ: 0,
                     tokens: [{ text: '}', cls: 'op' }]
                 },
-                // 00:11.6 - "she's heard before" + efek gema bertingkat
                 {
                     time: 11.6, lineIdx: 8, speed: 65, zoom: 1.85, rotX: 10, rotY: -5, rotZ: -1.2,
                     echoEffect: "// she's heard before",
@@ -716,7 +743,6 @@
                         { text: '// she\'s heard before', cls: 'comment' }
                     ]
                 },
-                // 00:18.0 - "I don't wanna be you..."
                 {
                     time: 17.3, lineIdx: 10, speed: 125, zoom: 2.25, rotX: 4, rotY: -4, rotZ: -1.0,
                     tokens: [
@@ -725,12 +751,121 @@
                         { text: '(you, ', cls: 'op' }
                     ]
                 },
-                // 00:24.8 - "...anymore" + zoom-out dramatis
                 {
                     time: 24.5, lineIdx: 10, speed: 95, zoom: 1.9, rotX: 0, rotY: 0, rotZ: 0,
                     finalZoomOut: true,
                     tokens: [
                         { text: '"anymore"', cls: 'str' },
+                        { text: ');', cls: 'op' }
+                    ]
+                }
+            ]
+        },
+        thecure: {
+            title: 'the_cure.js',
+            audioSrc: 'the cure.mp3',
+            totalLines: 13,
+            cues: [
+                // 00:00.2 - Intro nada panjang sebelum beat masuk
+                {
+                    time: 0.2, lineIdx: 0, speed: 65, zoom: 1.75, rotX: 2, rotY: -3, rotZ: -0.8,
+                    glowColor: 'rgba(255, 71, 87, 0.22)',
+                    tokens: [
+                        { text: '// diagnosing system...', cls: 'comment' }
+                    ]
+                },
+                // 00:04.2 - Beat Drop! "And my head is full of poison,"
+                {
+                    time: 6.8, lineIdx: 2, speed: 46, zoom: 2.25, rotX: 6, rotY: -7, rotZ: -1.6,
+                    shake: true,
+                    glowColor: 'rgba(0, 245, 212, 0.2)',
+                    tokens: [
+                        { text: 'let', cls: 'kw' },
+                        { text: ' head = ', cls: 'op' },
+                        { text: '"full of poison"', cls: 'toxin glitch-word', isWholeWord: true },
+                        { text: ';', cls: 'op' }
+                    ]
+                },
+                // 00:07.6 - "and my heart is full of doubt"
+                {
+                    time: 10.0, lineIdx: 3, speed: 46, zoom: 2.15, rotX: 4, rotY: 6, rotZ: 1.3,
+                    tokens: [
+                        { text: 'let', cls: 'kw' },
+                        { text: ' heart = ', cls: 'op' },
+                        { text: '"full of doubt"', cls: 'str' },
+                        { text: ';', cls: 'op' }
+                    ]
+                },
+                // 00:11.0 - "I got toxins in my bloodstream,"
+                {
+                    time: 12.3, lineIdx: 5, speed: 44, zoom: 2.2, rotX: 7, rotY: -6, rotZ: -1.2,
+                    shake: true,
+                    glowColor: 'rgba(0, 245, 212, 0.24)',
+                    tokens: [
+                        { text: 'bloodstream.', cls: 'op' },
+                        { text: 'inject', cls: 'fn' },
+                        { text: '(', cls: 'op' },
+                        { text: 'toxins', cls: 'toxin glitch-word', isWholeWord: true },
+                        { text: ');', cls: 'op' }
+                    ]
+                },
+                // 00:14.4 - "you tried hard to suck 'em out"
+                {
+                    time: 15.7, lineIdx: 6, speed: 44, zoom: 2.05, rotX: 3, rotY: 5, rotZ: 1.0,
+                    tokens: [
+                        { text: 'you.', cls: 'op' },
+                        { text: 'triedHardTo', cls: 'fn-alt' },
+                        { text: '(suckEmOut);', cls: 'op' }
+                    ]
+                },
+                // 00:17.7 - "And it feels like medication,"
+                {
+                    time: 20.0, lineIdx: 8, speed: 46, zoom: 2.15, rotX: 6, rotY: -5, rotZ: -1.1,
+                    glowColor: 'rgba(112, 161, 255, 0.24)',
+                    tokens: [
+                        { text: 'if', cls: 'kw' },
+                        { text: ' (feelsLike == ', cls: 'op' },
+                        { text: '"medication"', cls: 'med' },
+                        { text: ') {', cls: 'op' }
+                    ]
+                },
+                // 00:21.0 - "and it's good for me, I'm sure"
+                {
+                    time: 23.0, lineIdx: 9, speed: 46, zoom: 2.05, rotX: 4, rotY: 5, rotZ: 0.9,
+                    tokens: [
+                        { text: '  ', cls: 'op' },
+                        { text: 'return', cls: 'kw' },
+                        { text: ' goodForMe(sure);', cls: 'med' }
+                    ]
+                },
+                // 00:23.8 - tutup kurung }
+                {
+                    time: 26.8, lineIdx: 10, speed: 25, zoom: 1.85, rotX: 2, rotY: 0, rotZ: 0,
+                    tokens: [{ text: '}', cls: 'op' }]
+                },
+                // 00:24.3 - "But it don't matter how your love feels anymore"
+                {
+                    time: 27.3, lineIdx: 11, speed: 44, zoom: 2.2, rotX: 8, rotY: -6, rotZ: -1.3,
+                    shake: true,
+                    glowColor: 'rgba(255, 34, 34, 0.25)',
+                    echoEffect: 'ignore(yourLove.feelsAnymore);',
+                    tokens: [
+                        { text: 'ignore', cls: 'fn' },
+                        { text: '(yourLove.', cls: 'op' },
+                        { text: 'feelsAnymore', cls: 'prop' },
+                        { text: ');', cls: 'op' }
+                    ]
+                },
+                // 00:28.8 - "It will never be the cure" + zoom-out akhir
+                {
+                    time: 32.0, lineIdx: 12, speed: 52, zoom: 2.1, rotX: 0, rotY: 0, rotZ: 0,
+                    shake: true,
+                    finalZoomOut: true,
+                    tokens: [
+                        { text: 'it.', cls: 'op' },
+                        { text: 'neverBe', cls: 'kw glitch-word', isWholeWord: true },
+                        { text: '(', cls: 'op' },
+                        { text: '"the cure"', cls: 'str' },
                         { text: ');', cls: 'op' }
                     ]
                 }
@@ -744,6 +879,7 @@
     const audio = document.getElementById('audioPlayer');
     const popupSongTitle = document.getElementById('popupSongTitle');
     const ambientGlow = document.getElementById('ambientGlow');
+    const popupBox = document.getElementById('popupBox');
 
     let currentSong = musicCatalog.idontwanabeyoueneymore;
     let activeCueIndex = -1;
@@ -761,6 +897,7 @@
         isFinalZoomOut = false;
         camCurrent = { x: 0, y: 90, zoom: 1.9, rotX: 0, rotY: 0, rotZ: 0 };
         camTarget  = { x: 0, y: 90, zoom: 1.9, rotX: 0, rotY: 0, rotZ: 0 };
+        ambientGlow.style.background = 'radial-gradient(circle, rgba(255, 34, 34, 0.16) 0%, transparent 70%)';
 
         for (let i = 0; i < currentSong.totalLines; i++) {
             const lineDiv = document.createElement('div');
@@ -805,14 +942,13 @@
             ghost.style.transform = `translateY(0px) translateZ(${-i * 18}px)`;
             contentEl.appendChild(ghost);
 
-            // Animasi menyebar ke atas secara halus
             requestAnimationFrame(() => {
                 ghost.style.transform = `translateY(${-i * 22}px) translateZ(${-i * 18}px)`;
             });
 
             timeouts.push(setTimeout(() => {
                 ghost.style.opacity = '0';
-            }, 4200));
+            }, 3600));
         }
     }
 
@@ -823,14 +959,22 @@
         setActiveLineHighlight(cue.lineIdx);
         moveCursorTo(contentEl);
 
-        // Update arah dan zoom kamera 3D
         camTarget.zoom = cue.zoom;
         camTarget.rotX = cue.rotX;
         camTarget.rotY = cue.rotY;
         camTarget.rotZ = cue.rotZ;
 
-        // Denyut cahaya latar belakang tiap pergantian frasa
-        ambientGlow.style.transform = 'translate(-50%, -50%) scale(1.25)';
+        if (cue.glowColor) {
+            ambientGlow.style.background = `radial-gradient(circle, ${cue.glowColor} 0%, transparent 70%)`;
+        }
+
+        if (cue.shake) {
+            popupBox.classList.remove('shake');
+            void popupBox.offsetWidth;
+            popupBox.classList.add('shake');
+        }
+
+        ambientGlow.style.transform = 'translate(-50%, -50%) scale(1.3)';
         setTimeout(() => {
             ambientGlow.style.transform = 'translate(-50%, -50%) scale(1)';
         }, 250);
@@ -858,14 +1002,14 @@
                 if (i === charQueue.length - 1) {
                     if (cue.echoEffect) {
                         triggerEchoEffect(contentEl, cue.echoEffect);
-                        camTarget.zoom = 1.5;
-                        camTarget.rotX = 12;
+                        camTarget.zoom = 1.65;
+                        camTarget.rotX = 11;
                     }
                     if (cue.finalZoomOut) {
                         timeouts.push(setTimeout(() => {
                             isFinalZoomOut = true;
-                            camTarget = { x: 0, y: 0, zoom: 1.0, rotX: 0, rotY: 0, rotZ: 0 };
-                        }, 1100));
+                            camTarget = { x: 0, y: 0, zoom: 0.92, rotX: 0, rotY: 0, rotZ: 0 };
+                        }, 850));
                     }
                 }
             }, delay);
@@ -886,7 +1030,7 @@
                 camTarget.y = -relY;
             }
 
-            const ease = isFinalZoomOut ? 0.04 : 0.095;
+            const ease = isFinalZoomOut ? 0.045 : 0.1;
             camCurrent.x += (camTarget.x - camCurrent.x) * ease;
             camCurrent.y += (camTarget.y - camCurrent.y) * ease;
             camCurrent.zoom += (camTarget.zoom - camCurrent.zoom) * ease;
@@ -899,17 +1043,20 @@
         requestAnimationFrame(updateCameraLoop);
     }
 
-    // Sinkronisasi ketat berdasarkan audio.currentTime
-    audio.addEventListener('timeupdate', () => {
-        const t = audio.currentTime;
-        const cues = currentSong.cues;
-        for (let i = 0; i < cues.length; i++) {
-            if (t >= cues[i].time && activeCueIndex < i) {
-                activeCueIndex = i;
-                playCue(cues[i]);
+    // Sinkronisasi presisi tinggi menggunakan requestAnimationFrame saat audio berputar
+    function syncAudioLoop() {
+        if (isPopupOpen && !audio.paused) {
+            const t = audio.currentTime;
+            const cues = currentSong.cues;
+            for (let i = 0; i < cues.length; i++) {
+                if (t >= cues[i].time && activeCueIndex < i) {
+                    activeCueIndex = i;
+                    playCue(cues[i]);
+                }
             }
         }
-    });
+        requestAnimationFrame(syncAudioLoop);
+    }
 
     // --- KONTROL PILIH LAGU & POP-UP ---
     function pilihMusik(trackKey) {
@@ -963,6 +1110,7 @@
 
     initEditor();
     requestAnimationFrame(updateCameraLoop);
+    requestAnimationFrame(syncAudioLoop);
 </script>
 </body>
 </html>
